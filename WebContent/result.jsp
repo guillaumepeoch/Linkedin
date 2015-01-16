@@ -24,7 +24,7 @@ String region = profil.getRegion();
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
-<title>Middleware</title>
+<title>Architecture N-tiers</title>
 
         <!-- MY CSS -->
         <link rel="stylesheet" href="styles/main.css">
