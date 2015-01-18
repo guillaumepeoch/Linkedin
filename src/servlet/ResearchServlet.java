@@ -11,29 +11,29 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import profil.Profil;
-
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIConversion.User;
-
-import ejbs.ResearchBean;
-import ejbs.ResearchRemote;
+import bean.Profil;
+import bean.ResearchBean;
 
 
-@WebServlet("/researchServlet")
+
+
+@WebServlet(name="researchServlet", urlPatterns = {"/"})
 public class ResearchServlet extends HttpServlet{
 
 
 	private static final long serialVersionUID = 1L;
-	private ResearchRemote bean;
+
+	private static String VUE = "/WEB-INF/index.jsp";
+	private static String RESULT = "/WEB-INF/result.jsp";
+	private static String RESULT_ERROR = "/WEB-INF/resultError.jsp";
+
+	private ResearchBean bean;
 	private Profil profil;
 
-	protected void ini() throws NamingException{
-		InitialContext ctx = new InitialContext();
-		bean = (ResearchRemote) ctx.lookup("ResearchBean");
-		System.out.println("ini");
-
-
+	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
+
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,46 +43,47 @@ public class ResearchServlet extends HttpServlet{
 
 			System.out.println("btn1");
 
-			
-
-	        	try {
-	        		ini();
-
-	        		System.out.println("SearchBTN");
-
-		        	String nom = request.getParameter("nom");
-		            String prenom = request.getParameter("prenom");
-
-		            System.out.println("btn2");
-		            
-		            this.profil = this.bean.research(nom, prenom);
-		            System.out.println("btn3");
-		            System.out.println(bean.toString());
-
-		            // profil fake
-		            //this.profil = new Profil("PEOC'H", "Guillaume", "https://www.linkedin.com/pub/guillaume-peoch/a2/37/513",74, "SSD", "Informatique Reseaux", "Arlington");
-		            
-		            
-		            System.out.println(this.profil.getNom()); 
-
-		        	//if(bean.succes()){
 
 
+			try {
 
-		        		// Nous envoyons notre uilisateur qui vient de se connecter a friends.jsp
-		        		request.setAttribute("profil", profil);
+				bean = new ResearchBean();
+				//bean = (ResearchRemote) ctx.lookup("ResearchBean");
+				System.out.println("SearchBTN");
 
-		        		request.getRequestDispatcher("/result.jsp").forward(request, response);
+				String nom = request.getParameter("nom");
+				String prenom = request.getParameter("prenom");
+
+				System.out.println("btn2");
+
+				profil = this.bean.research(nom, prenom);
+				if(profil == null)
+				{
+					profil = new Profil();
+				}
+				System.out.println("btn3");
+				System.out.println(profil.getNom());
+
+				//if(bean.succes()){
 
 
-		        		} catch (Exception e) { e.printStackTrace();
-		        		}
-	        }  
 
+				// Nous envoyons notre uilisateur qui vient de se connecter a friends.jsp
+				request.setAttribute("profil", profil);
 
-		}
+				this.getServletContext().getRequestDispatcher(RESULT).forward(request, response);
+
+			}
+			catch (Exception e)
+			{ 
+				e.printStackTrace();
+			}
+		}  
+
 
 	}
+
+}
 
 
 

@@ -1,26 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=US-ASCII"
-    pageEncoding="US-ASCII"%>
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+        <meta charset="utf-8" />
         <title>Architecture N-tiers</title>
-
-        <!-- MY CSS -->
-        <link rel="stylesheet" href="styles/main.css">
-
-        <!-- MY SCRIPT -->
-
 
         <!-- BOOTSRAP -->
         <!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">   
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">  
-
+		<!-- MY CSS -->
+        
+        <link rel="stylesheet" href="<c:url value="/styles/main.css"/>">
+        
+        <!-- MY SCRIPT -->       
     </head>
-
-
     <body>
 
     	<div class="page-header">
@@ -35,7 +31,7 @@
 			  		<div class="panel-heading"><h3 class="panel-title"><strong>Look for ...?</strong></h3>
 			  		</div>
 			  	<div class="panel-body">
-			    <form action="${pageContext.request.contextPath}/researchServlet" method="post" role="form">
+			    <form action="researchServlet" method="post" role="form">
 			  		<div class="form-group">
 			    		<label for="exampleInputEmail1">Nom</label>
 			    		<input type="text" class="form-control" id="exampleInputEmail1" name="nom" placeholder="Enter nom">

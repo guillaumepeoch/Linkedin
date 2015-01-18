@@ -1,4 +1,4 @@
-package profil;
+package bean;
 
 import java.awt.Image;
 
@@ -7,28 +7,28 @@ public class Profil {
 	private String nom;
 	private String prenom;
 	private String urlLinkedin;
-	private int nombreContact;
+	private String nombreContact;
 	private String entreprise;
 	private String secteurActivites;
-	private Image photoLinkedin;
+	private String photoLinkedin;
 	private String region;
 	
-	
-
-	
-	
-	
-	
 	public Profil() {
-
-		
+		nom = "Default";
+		prenom = "Default";
+		urlLinkedin = "http://www.google.com";
+		nombreContact = "0";
+		entreprise = "Default";
+		secteurActivites = "Default";
+		photoLinkedin = "https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_40x40_v1.png";
+		region = "Default";		
 	}
 	
 
 
 	public Profil(String nom, String prenom, String urlLinkedin,
-			int nombreContact, String entreprise, String secteurActivites,
-			/*Image photoLinkedin,*/ String region) {
+			String nombreContact, String entreprise, String secteurActivites,
+			String photoLinkedin, String region) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -36,7 +36,7 @@ public class Profil {
 		this.nombreContact = nombreContact;
 		this.entreprise = entreprise;
 		this.secteurActivites = secteurActivites;
-		//this.photoLinkedin = photoLinkedin;
+		this.photoLinkedin = photoLinkedin;
 		this.region = region;
 	}
 
@@ -54,8 +54,6 @@ public class Profil {
 	public String getNom() {
 		return nom;
 	}
-	
-
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
@@ -71,10 +69,10 @@ public class Profil {
 	public void setUrlLinkedin(String urlLinkedin) {
 		this.urlLinkedin = urlLinkedin;
 	}
-	public int getNombreContact() {
+	public String getNombreContact() {
 		return nombreContact;
 	}
-	public void setNombreContact(int nombreContact) {
+	public void setNombreContact(String nombreContact) {
 		this.nombreContact = nombreContact;
 	}
 	public String getEntreprise() {
@@ -89,10 +87,10 @@ public class Profil {
 	public void setSecteurActivites(String secteurActivites) {
 		this.secteurActivites = secteurActivites;
 	}
-	public Image getPhotoLinkedin() {
+	public String getPhotoLinkedin() {
 		return photoLinkedin;
 	}
-	public void setPhotoLinkedin(Image photoLinkedin) {
+	public void setPhotoLinkedin(String photoLinkedin) {
 		this.photoLinkedin = photoLinkedin;
 	}
 	public String getRegion() {
@@ -101,7 +99,4 @@ public class Profil {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	
-	
-
 }
