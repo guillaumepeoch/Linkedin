@@ -72,7 +72,7 @@ public class ListLinks {
 
         for (Element link : links)
         {
-        	if(link.attr("abs:href").contains("linkedin.com/pub/"))
+        	if(link.attr("abs:href").contains("linkedin.com/"))
         	{
         		String UrlLinkedin = link.attr("abs:href");
                 foundProfil(UrlLinkedin); 
@@ -90,7 +90,7 @@ public class ListLinks {
    	
 	public void foundProfil(String UrlLinkedin) throws IOException{        
 		//this.profil = new Profil("PEOC'H1", "Guillaume1", "https://www.linkedin.com/pub/guillaume-peoch/a2/37/513",74, "SSD", "Informatique Reseaux","https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/08f/00f/2ea68cb.jpg", "Arlington");
-		System.out.println("Found PEOCH");
+		
 		System.out.println("GOTO " + UrlLinkedin);
 		Document doc = Jsoup.connect(UrlLinkedin).get();
 		Element body = doc.body();
@@ -101,7 +101,7 @@ public class ListLinks {
 		
 
 		
-		Element name = top.getElementById(ID_NAME);	
+		//Element name = top.getElementById(ID_NAME);	
 		Element title = top.getElementById(ID_TITLE);
 		Element location = top.getElementById(ID_LOCATION);
 		Element current = top.getElementById(ID_CURRENT);
@@ -116,7 +116,7 @@ public class ListLinks {
 		
 
 		
-		Elements FN = name.getElementsByClass(CLASS_FULLNAME);
+		//Elements FN = name.getElementsByClass(CLASS_FULLNAME);
 		Elements T = title.getElementsByClass(CLASS_TITLE);
 		Elements L = location.getElementsByClass(CLASS_LOCALITY);
 		Elements I = location.getElementsByClass(CLASS_INDUSTRY);
@@ -130,7 +130,7 @@ public class ListLinks {
 		{
 			Img = "https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_40x40_v1.png";
 		}
-		String FullName = FN.first().text();
+		//String FullName = FN.first().text();
 		String Title = "Non Renseigné";
 		if(T.size() != 0)
 		{
@@ -148,20 +148,20 @@ public class ListLinks {
 		}
 		String Relation = R.first().text().replace("connections", "");
 		System.out.println("\n IMG =>" + Img.toString());
-		System.out.println("\n Name =>" + FullName.toString());
+		//System.out.println("\n Name =>" + FullName.toString());
 		System.out.println("\n Title =>" + Title.toString());
 		System.out.println("\n Locality =>" + Locality.toString());
 		System.out.println("\n Industry =>" + Industry.toString());
 		System.out.println("\n Relation =>" + Relation.toString());
 		//System.out.println(doc.body().toString());
-		if(FullName.toUpperCase().contains(nom.toUpperCase()))
-		{
+	//	if(FullName.toUpperCase().contains(nom.toUpperCase()))
+		//{
 			this.profil = new Profil(this.nom.toUpperCase(), this.prenom.toUpperCase(), UrlLinkedin, Relation, Title,Industry,Img, Locality);
-		}
-		else
-		{
-			this.profil = new Profil();
-		}		
+		//}
+		//else
+	//	{
+		//	this.profil = new Profil();
+		//}		
    	}
 	
 
