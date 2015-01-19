@@ -101,12 +101,12 @@ public class ListLinks {
 		
 
 		
-		//Element name = top.getElementById(ID_NAME);	
+		Element name = top.getElementById(ID_NAME);	
 		Element title = top.getElementById(ID_TITLE);
 		Element location = top.getElementById(ID_LOCATION);
 		Element current = top.getElementById(ID_CURRENT);
 		Element formation = top.getElementById(ID_FORMATION);
-		//Element relation = top.getElementById(ID_NAME);
+		Element relation = top.getElementById(ID_NAME);
 		
 //		System.out.println("\n name \n\n" + name.toString());
 //		System.out.println("\n title \n\n" + title.toString());
@@ -116,7 +116,7 @@ public class ListLinks {
 		
 
 		
-		//Elements FN = name.getElementsByClass(CLASS_FULLNAME);
+		Elements FN = name.getElementsByClass(CLASS_FULLNAME);
 		Elements T = title.getElementsByClass(CLASS_TITLE);
 		Elements L = location.getElementsByClass(CLASS_LOCALITY);
 		Elements I = location.getElementsByClass(CLASS_INDUSTRY);
@@ -130,18 +130,18 @@ public class ListLinks {
 		{
 			Img = "https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_40x40_v1.png";
 		}
-		//String FullName = FN.first().text();
-		String Title = "Non Renseigné";
+		String FullName = FN.first().text();
+		String Title = "Non RenseignÃ©";
 		if(T.size() != 0)
 		{
 			Title = T.first().text();
 		}
-		String Locality = "Non Renseigné";
+		String Locality = "Non RenseignÃ©";
 		if(L.size() != 0)
 		{
 			Locality = L.first().text();
 		}
-		String Industry = "Non Renseigné";
+		String Industry = "Non RenseignÃ©";
 		if(I.size() != 0)
 		{
 			Industry = I.first().text();
@@ -149,20 +149,20 @@ public class ListLinks {
 		String Relation = R.first().text().replace("connections", "");
 		System.out.println("\n IMG =>" + Img.toString());
 		Img = Img.replace("shrink_500_500", "shrink_200_200");
-		//System.out.println("\n Name =>" + FullName.toString());
+		System.out.println("\n Name =>" + FullName.toString());
 		System.out.println("\n Title =>" + Title.toString());
 		System.out.println("\n Locality =>" + Locality.toString());
 		System.out.println("\n Industry =>" + Industry.toString());
 		System.out.println("\n Relation =>" + Relation.toString());
 		//System.out.println(doc.body().toString());
-	//	if(FullName.toUpperCase().contains(nom.toUpperCase()))
-		//{
+		if(FullName.toUpperCase().contains(nom.toUpperCase()))
+		{
 			this.profil = new Profil(this.nom.toUpperCase(), this.prenom.toUpperCase(), UrlLinkedin, Relation, Title,Industry,Img, Locality);
-		//}
-		//else
-	//	{
-		//	this.profil = new Profil();
-		//}		
+		}
+		else
+		{
+			this.profil = new Profil();
+		}		
    	}
 	
 
