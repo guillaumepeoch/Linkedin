@@ -2,6 +2,9 @@
     margin-bottom: 14px;
 }
 
+
+
+
 .user-row:last-child {
     margin-bottom: 0;
 }
@@ -14,6 +17,12 @@
 
 .dropdown-user:hover {
     cursor: pointer;
+}
+
+.img {	
+	width: 100%;
+	height:auto;
+	border-radius:100px;
 }
 
 .table-user-information > tbody > tr {
@@ -31,3 +40,5 @@
 .toppad
 {margin-top:20px;
 }
+
+

@@ -131,23 +131,24 @@ public class ListLinks {
 			Img = "https://static.licdn.com/scds/common/u/images/themes/katy/ghosts/person/ghost_person_40x40_v1.png";
 		}
 		//String FullName = FN.first().text();
-		String Title = "Non RenseignÃ©";
+		String Title = "Non Renseigné";
 		if(T.size() != 0)
 		{
 			Title = T.first().text();
 		}
-		String Locality = "Non RenseignÃ©";
+		String Locality = "Non Renseigné";
 		if(L.size() != 0)
 		{
 			Locality = L.first().text();
 		}
-		String Industry = "Non RenseignÃ©";
+		String Industry = "Non Renseigné";
 		if(I.size() != 0)
 		{
 			Industry = I.first().text();
 		}
 		String Relation = R.first().text().replace("connections", "");
 		System.out.println("\n IMG =>" + Img.toString());
+		Img = Img.replace("shrink_500_500", "shrink_200_200");
 		//System.out.println("\n Name =>" + FullName.toString());
 		System.out.println("\n Title =>" + Title.toString());
 		System.out.println("\n Locality =>" + Locality.toString());
