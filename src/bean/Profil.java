@@ -2,6 +2,11 @@ package bean;
 
 import java.awt.Image;
 
+/***
+ * 
+ * Bean Profil
+ *
+ */
 public class Profil {
 	
 	private String nom;

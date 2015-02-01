@@ -31,7 +31,7 @@
 			  		<div class="panel-heading"><h3 class="panel-title"><strong>Look for ...?</strong></h3>
 			  		</div>
 			  	<div class="panel-body">
-			    <form action="researchServlet" method="post" role="form">
+			    <form action="<c:url value="/"/>" method="post" role="form">
 			  		<div class="form-group">
 			    		<label for="exampleInputEmail1">Nom</label>
 			    		<input type="text" class="form-control" id="exampleInputEmail1" name="nom" placeholder="Enter nom">

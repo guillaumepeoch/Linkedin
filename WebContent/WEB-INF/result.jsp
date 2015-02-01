@@ -94,6 +94,9 @@
 				<div align="center">
 					<a href="<c:url value="/"/>"><button class="btn btn-success"
 							name="searchBTN">Nouvelle Recherche</button> </a>
+							<form action="<c:url value="/"/>" method="post" role="form">
+							<button type="submit" class="btn btn-info" name="saveBTN">Sauvegarder</button>
+							</form>					
 				</div>
 			</div>
 		</div>

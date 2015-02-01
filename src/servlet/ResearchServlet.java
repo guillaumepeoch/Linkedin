@@ -15,6 +15,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.filechooser.FileSystemView;
+
+import org.apache.log4j.Logger;
+import org.jsoup.examples.ListLinks;
 
 import bean.Profil;
 import bean.ResearchBean;
@@ -24,80 +28,99 @@ import bean.ResearchBean;
 
 @WebServlet(name="researchServlet", urlPatterns = {"/"})
 public class ResearchServlet extends HttpServlet{
-
+	private static Logger logger = Logger.getLogger(ResearchServlet.class);
+	
 
 	private static final long serialVersionUID = 1L;
 
 	private static String VUE = "/WEB-INF/index.jsp";
 	private static String RESULT = "/WEB-INF/result.jsp";
-	private static String RESULT_ERROR = "/WEB-INF/resultError.jsp";
-	private static String INITIALPATH = "save.csv";
+	private static String NAMESAVE = "save.csv";
 
 	private ResearchBean bean;
 	private Profil profil;
 
 	public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+		
+		 logger.debug("IN doGET");
+			this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
 
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// Button Search 
+		 logger.debug("IN doPost");
+		 
 		if (request.getParameter("searchBTN") != null) {
-
-			System.out.println("btn1");
-
-
-
+			 logger.debug("IN searchBTN");
 			try {
 
 				bean = new ResearchBean();
-				//bean = (ResearchRemote) ctx.lookup("ResearchBean");
-				System.out.println("SearchBTN");
 
 				String nom = request.getParameter("nom");
 				String prenom = request.getParameter("prenom");
-
-				System.out.println("btn2");
 
 				profil = this.bean.research(nom, prenom);
 				if(profil == null)
 				{
 					profil = new Profil();
 				}
-				System.out.println("btn3");
-				System.out.println(profil.getNom());
-
-				//if(bean.succes()){
 				
-				if(!profil.getNom().equals("Default") && !profil.getPrenom().equals("Default")) {
-					saveProfil(profil);
-				}
-
-				// Nous envoyons notre uilisateur qui vient de se connecter a friends.jsp
+				// Sauvegarde du profil dans la request pour y acceder en jsp
 				request.setAttribute("profil", profil);
-
+				 logger.debug("OUT searchBTN");
+				 
 				this.getServletContext().getRequestDispatcher(RESULT).forward(request, response);
 
 			}
 			catch (Exception e)
 			{ 
+				logger.error("Une exception est survenue dans searchBTN : " + e.getMessage());
 				e.printStackTrace();
+				this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 			}
 		}  
-
-
+		
+		if (request.getParameter("saveBTN") != null) {
+			
+			try
+			{
+				 logger.debug("IN saveBTN");
+				if(!profil.getNom().equals("Default") && !profil.getPrenom().equals("Default")) {
+					saveProfil(profil);				
+				}
+				 logger.debug("OUT saveBTN");
+			}
+			catch(Exception e)
+			{
+				logger.error("Une exception est survenue dans saveBTN : " + e.getMessage());
+				e.printStackTrace();
+			}
+			finally
+			{
+				this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+			}
+		}
+		
 	}
 
+	/**
+	 * Sauvegarde le profil dans un fichier CSV sur le getHomeDirectory
+	 * @param profil
+	 */
 	void saveProfil(Profil profil) {
 
+		 logger.debug("IN saveProfil ");
+		
 		boolean dejaEcrit = false;
+		FileSystemView filesys = FileSystemView.getFileSystemView(); 
+		String Path = filesys.getHomeDirectory() + File.separator + NAMESAVE;
+		System.out.println(Path);
 		try
 		{
-			File fichier = new File(INITIALPATH);
-
+			       
+			File fichier =  new File(Path);
 			fichier.createNewFile();
 		}
 		catch (Exception e)
@@ -106,7 +129,7 @@ public class ResearchServlet extends HttpServlet{
 		} 
 		try{
 
-			BufferedReader br = new BufferedReader(new FileReader(INITIALPATH));
+			BufferedReader br = new BufferedReader(new FileReader(Path));
 			String ligne;
 			while ((ligne = br.readLine()) != null && !dejaEcrit) {
 				if(!ligne.trim().equals(""))
@@ -133,11 +156,12 @@ public class ResearchServlet extends HttpServlet{
 		if(!dejaEcrit) {
 			try {
 				
-				BufferedWriter writer = new BufferedWriter(new FileWriter(INITIALPATH, true));
+				BufferedWriter writer = new BufferedWriter(new FileWriter(Path, true));
 				String result = profil.getNom() + "," + profil.getPrenom() + "," + profil.getUrlLinkedin() + "\n" ;
 				writer.write(result);
 				writer.close();
-				System.out.println("Ecriture fichier terminée");
+				
+				logger.debug("Ecriture fichier terminée");
 			}
 			catch (IOException e)
 			{
@@ -145,8 +169,11 @@ public class ResearchServlet extends HttpServlet{
 			}
 		}
 		else {
-			System.out.println("Déjà sauvegardé");
+			logger.debug("Profil déjà sauvegardé");
 		}
+		
+		 logger.debug("OUT saveProfil ");
+		
 	}
 
 }
